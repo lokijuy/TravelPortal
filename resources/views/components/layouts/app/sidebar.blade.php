@@ -16,11 +16,23 @@
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist.group>
 
-                <flux:navlist.group :heading="__('Travel Policy Management')" class="grid">
-                    <flux:navlist.item icon="document-text" :href="route('travel-policy.index')" :current="request()->routeIs('travel-policy.index')" wire:navigate>{{ __('Travel Policies') }}</flux:navlist.item>
-                    <flux:navlist.item icon="document-check" :href="route('travel-policy.posted')" :current="request()->routeIs('travel-policy.posted')" wire:navigate>{{ __('Posted Policies') }}</flux:navlist.item>
-                    <flux:navlist.item icon="document-chart-bar" :href="route('travel-policy.report')" :current="request()->routeIs('travel-policy.report')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
-                    {{-- <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>{{ __('User Maintenance') }}</flux:navlist.item> --}}
+                <flux:navlist.group :heading="__('Policy Management')" class="grid">
+                    <flux:navlist.item icon="document-text" :href="route('policy-issuance.index')" :current="request()->routeIs('policy-issuance.index')" wire:navigate>{{ __('Policy Issuance') }}</flux:navlist.item>
+                    <flux:navlist.item icon="document-check" :href="route('policy-issuance.posted')" :current="request()->routeIs('policy-issuance.posted')" wire:navigate>{{ __('Posted Policies') }}</flux:navlist.item>
+                    <flux:navlist.item icon="document-chart-bar" :href="route('policy-issuance.report')" :current="request()->routeIs('policy-issuance.report')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group :heading="__('User Management')" class="grid">
+                    <flux:navlist.item icon="user-group" :href="route('user-permissions.index')" :current="request()->routeIs('user-permissions.*')" wire:navigate>{{ __('User Permissions') }}</flux:navlist.item>
+                </flux:navlist.group>
+
+                <flux:navlist.group :heading="__('Maintenance')" class="grid">
+                    <flux:navlist.item icon="building-office" :href="route('maintenance.branches.index')" :current="request()->routeIs('maintenance.branches.*')" wire:navigate>{{ __('Branches') }}</flux:navlist.item>
+                    <flux:navlist.item icon="user-group" :href="route('maintenance.agents.index')" :current="request()->routeIs('maintenance.agents.*')" wire:navigate>{{ __('Agents') }}</flux:navlist.item>
+                    <flux:navlist.item icon="cube" :href="route('maintenance.packages.index')" :current="request()->routeIs('maintenance.packages.*')" wire:navigate>{{ __('Packages') }}</flux:navlist.item>
+                    <flux:navlist.item icon="document-text" :href="route('maintenance.programs.index')" :current="request()->routeIs('maintenance.programs.*')" wire:navigate>{{ __('Programs') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shopping-bag" :href="route('maintenance.products.index')" :current="request()->routeIs('maintenance.products.*')" wire:navigate>{{ __('Products') }}</flux:navlist.item>
+                    <flux:navlist.item icon="shield-check" :href="route('maintenance.coverages.index')" :current="request()->routeIs('maintenance.coverages.*')" wire:navigate>{{ __('Coverages') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
