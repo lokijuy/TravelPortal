@@ -1,0 +1,147 @@
+# Database Documentation
+
+## Overview
+This database schema represents an insurance management system that handles users, agents, policies, and related entities. The system appears to be designed for managing insurance policies, programs, and coverages while maintaining user permissions and agent relationships.
+
+## Tables Structure
+
+### Users
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: User's full name
+  - `email`: User's email address 
+  - `email_verified_at`: Timestamp when email was verified
+  - `password`: Hashed password
+  - `remember_token`: Token for "remember me" functionality
+  - `agent_id`: Foreign key reference to the agents table
+
+### User Permissions
+- Primary Key: `UniqueID`
+- Fields:
+  - `user_id`: Foreign key reference to users table
+  - `permission_id`: Foreign key reference to permissions table
+- Purpose: Junction table managing user-permission relationships
+
+### Permissions
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Permission name
+  - `display_name`: Human-readable permission name
+  - `module`: Module/section the permission belongs to
+  - `description`: Detailed description of the permission
+
+### Agents
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Agent's name
+  - `code`: Agent's unique code
+  - `branch_id`: Foreign key reference to branches table
+  - `package_id`: Foreign key reference to packages table
+
+### Branches
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Branch name
+  - `code`: Branch code
+  - `lgt_rate`: Local government tax rate
+
+### Packages
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Package name
+  - `policy_limit`: Maximum policy limit for the package
+
+### Programs
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Program name
+  - `code`: Program code
+  - `description`: Program description
+  - `package_id`: Foreign key reference to packages table
+
+### Products
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Product name
+  - `code`: Product code
+  - `program_id`: Foreign key reference to programs table
+  - `gross`: Gross amount
+  - `net`: Net amount
+  - `premium_tax`: Tax amount on premium
+  - `lgt`: local government tax
+  - `doc_stamp`: Document stamp value
+
+### Coverages
+- Primary Key: `UniqueID`
+- Fields:
+  - `name`: Coverage name
+  - `value`: Coverage value
+  - `product_id`: Foreign key reference to products table
+
+### Policy Issuances
+- Primary Key: `UniqueID`
+- Fields:
+  - `full_name`: Policy holder's full name
+  - `email`: Policy holder's email
+  - `contact_number`: Contact information
+  - `address1`: Primary address
+  - `address2`: Secondary address
+  - `source_of_fund`: Fund source information
+  - `gender`: Policy holder's gender
+  - `nationality`: Policy holder's nationality
+  - `birth_date`: Policy holder's date of birth
+  - `govt_id_type`: Type of government ID
+  - `govt_id_number`: Government ID number
+  - `govt_id_image`: Government ID image reference
+  - `beneficiary_name`: Beneficiary's name
+  - `beneficiary_contact`: Beneficiary's contact information
+  - `beneficiary_relationship`: Relationship to the policy holder
+  - `document_number`: Policy document number
+  - `status`: Policy status
+  - `posted_at`: Policy posting timestamp
+  - `deleted_at`: Soft delete timestamp
+  - `disclaimer`: Policy disclaimer text
+  - `user_id`: Foreign key reference to users table
+
+## Relationships
+
+1. Users to Agents: Many-to-One
+   - Users belong to a single agent
+   - Agents can have multiple users
+
+2. Users to Permissions: Many-to-Many
+   - Managed through the user_permissions junction table
+   - Users can have multiple permissions
+   - Permissions can be assigned to multiple users
+
+3. Agents to Branches: Many-to-One
+   - Agents belong to a single branch
+   - Branches can have multiple agents
+
+4. Agents to Packages: Many-to-One
+   - Agents are associated with a specific package
+   - Packages can be assigned to multiple agents
+
+5. Programs to Packages: Many-to-One
+   - Programs belong to a specific package
+   - Packages can have multiple programs
+
+6. Products to Programs: Many-to-One
+   - Products belong to a specific program
+   - Programs can have multiple products
+
+7. Coverages to Products: Many-to-One
+   - Coverages belong to a specific product
+   - Products can have multiple coverages
+
+8. Policy Issuances to Users: Many-to-One
+   - Policy issuances are associated with a user
+   - Users can have multiple policy issuances
+
+## Notes
+- All tables include timestamp fields:
+  - `created_at`: Timestamp when the record was created
+  - `updated_at`: Timestamp when the record was last updated
+  - `deleted_at`: Soft delete timestamp (nullable)
+- Government ID verification is integrated into the policy issuance process
+- The system supports multiple levels of user permissions and access control

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
+        'agent_id',
     ];
 
     /**
@@ -165,5 +166,13 @@ class User extends Authenticatable
     {
         $permissionIds = Permission::whereIn('name', $permissions)->pluck('id');
         $this->permissions()->sync($permissionIds);
+    }
+
+    /**
+     * Get the agent that owns the user.
+     */
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
     }
 }
