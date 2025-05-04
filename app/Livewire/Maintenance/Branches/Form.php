@@ -30,10 +30,10 @@ class Form extends Component
             }
         } catch (ModelNotFoundException $e) {
             session()->flash('error', 'Branch not found.');
-            return redirect()->route('maintenance.branches.index');
+            $this->redirectRoute('maintenance.branches.index');
         } catch (Exception $e) {
             session()->flash('error', 'An error occurred while loading the branch.');
-            return redirect()->route('maintenance.branches.index');
+            $this->redirectRoute('maintenance.branches.index');
         }
     }
 
@@ -78,13 +78,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Branch created successfully.');
-            return redirect()->route('maintenance.branches.index');
+            $this->redirectRoute('maintenance.branches.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create branch. Please try again.');
             $this->errorMessage = 'An error occurred while saving the branch.';
-            return null;
         }
     }
 
@@ -102,17 +101,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Branch updated successfully.');
-            return redirect()->route('maintenance.branches.index');
+            $this->redirectRoute('maintenance.branches.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Branch not found.');
-            return redirect()->route('maintenance.branches.index');
+            $this->redirectRoute('maintenance.branches.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update branch. Please try again.');
             $this->errorMessage = 'An error occurred while updating the branch.';
-            return null;
         }
     }
 

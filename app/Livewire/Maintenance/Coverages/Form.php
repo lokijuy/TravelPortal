@@ -24,17 +24,15 @@ class Form extends Component
             } else {
                 $this->coverage = [
                     'name' => '',
-                    'code' => '',
-                    'description' => '',
-                    'is_active' => true,
+                    'value' => 0,
                 ];
             }
         } catch (ModelNotFoundException $e) {
             session()->flash('error', 'Coverage not found.');
-            return redirect()->route('maintenance.coverages.index');
+            $this->redirectRoute('maintenance.coverages.index');
         } catch (Exception $e) {
             session()->flash('error', 'An error occurred while loading the coverage.');
-            return redirect()->route('maintenance.coverages.index');
+            $this->redirectRoute('maintenance.coverages.index');
         }
     }
 
@@ -42,9 +40,7 @@ class Form extends Component
     {
         return [
             'coverage.name' => 'required|string|max:255',
-            'coverage.code' => 'required|string|max:50|unique:coverages,code' . ($this->isEdit ? ',' . $this->coverage['id'] : ''),
-            'coverage.description' => 'nullable|string',
-            'coverage.is_active' => 'boolean',
+            'coverage.value' => 'required|numeric|min:0',
         ];
     }
 
@@ -52,8 +48,9 @@ class Form extends Component
     {
         return [
             'coverage.name.required' => 'The name field is required.',
-            'coverage.code.required' => 'The code field is required.',
-            'coverage.code.unique' => 'This code is already in use.',
+            'coverage.value.required' => 'The value field is required.',
+            'coverage.value.numeric' => 'The value must be a number.',
+            'coverage.value.min' => 'The value must be at least 0.',
         ];
     }
 
@@ -76,13 +73,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Coverage created successfully.');
-            return redirect()->route('maintenance.coverages.index');
+            $this->redirectRoute('maintenance.coverages.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create coverage. Please try again.');
             $this->errorMessage = 'An error occurred while saving the coverage.';
-            return null;
         }
     }
 
@@ -100,17 +96,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Coverage updated successfully.');
-            return redirect()->route('maintenance.coverages.index');
+            $this->redirectRoute('maintenance.coverages.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Coverage not found.');
-            return redirect()->route('maintenance.coverages.index');
+            $this->redirectRoute('maintenance.coverages.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update coverage. Please try again.');
             $this->errorMessage = 'An error occurred while updating the coverage.';
-            return null;
         }
     }
 

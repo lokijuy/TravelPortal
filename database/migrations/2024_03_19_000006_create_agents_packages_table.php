@@ -8,18 +8,16 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('packages', function (Blueprint $table) {
+        Schema::create('agents_packages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code')->unique();
-            $table->text('description')->nullable();
+            $table->foreignId('agent_id')->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('agents_packages');
     }
 }; 

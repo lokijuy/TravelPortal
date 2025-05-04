@@ -19,7 +19,6 @@ class Agent extends Model
         'name',
         'code',
         'branch_id',
-        'package_id',
     ];
 
     /**
@@ -31,11 +30,13 @@ class Agent extends Model
     }
 
     /**
-     * Get the package that owns the agent.
+     * Get the packages associated with the agent.
      */
-    public function package()
+    public function packages()
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsToMany(Package::class, 'agents_packages')
+            ->using(AgentPackage::class)
+            ->withTimestamps();
     }
 
     /**

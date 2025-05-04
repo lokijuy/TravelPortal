@@ -19,16 +19,7 @@ class Program extends Model
         'name',
         'code',
         'description',
-        'package_id',
     ];
-
-    /**
-     * Get the package that owns the program.
-     */
-    public function package()
-    {
-        return $this->belongsTo(Package::class);
-    }
 
     /**
      * Get the products associated with the program.

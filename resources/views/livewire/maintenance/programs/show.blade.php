@@ -1,51 +1,64 @@
-<div class="container mx-auto px-4 py-8">
+<div class="p-6 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Program Details</h1>
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Program Details</h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                View detailed information about this program
+            </p>
+        </div>
         <div class="flex space-x-3">
-            <a href="{{ route('maintenance.programs.edit', $program) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+            <a 
+                href="{{ route('maintenance.programs.edit', $program) }}"
+                wire:navigate
+                class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+            >
                 Edit Program
             </a>
-            <a href="{{ route('maintenance.programs.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md">
+            <a 
+                href="{{ route('maintenance.programs.index') }}"
+                wire:navigate
+                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
                 Back to List
             </a>
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Basic Information -->
+        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Basic Information</h3>
+            <dl class="space-y-4">
                 <div>
-                    <h3 class="text-lg font-medium text-gray-900">Basic Information</h3>
-                    <dl class="mt-4 space-y-4">
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Name</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ $program->name }}</dd>
-                        </div>
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Code</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ $program->code }}</dd>
-                        </div>
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Status</dt>
-                            <dd class="mt-1">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $program->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                    {{ $program->is_active ? 'Active' : 'Inactive' }}
-                                </span>
-                            </dd>
-                        </div>
-                    </dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Name</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $program->name }}</dd>
                 </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Code</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $program->code }}</dd>
+                </div>
+            </dl>
+        </div>
 
+        <!-- Additional Information -->
+        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Additional Information</h3>
+            <dl class="space-y-4">
                 <div>
-                    <h3 class="text-lg font-medium text-gray-900">Additional Information</h3>
-                    <dl class="mt-4 space-y-4">
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Description</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ $program->description }}</dd>
-                        </div>
-                    </dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Description</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $program->description ?? 'N/A' }}</dd>
                 </div>
-            </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Created At</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $program->created_at->format('M d, Y H:i A') }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Last Updated</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white">{{ $program->updated_at->format('M d, Y H:i A') }}</dd>
+                </div>
+            </dl>
         </div>
     </div>
+
+    <x-toast-notification />
 </div> 

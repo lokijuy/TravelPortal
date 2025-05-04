@@ -28,7 +28,7 @@ class CreatePermission  extends Component
         ]);
 
         session()->flash('message', 'Permission created successfully.');
-        return redirect()->route('user-permissions.index');
+        $this->redirectRoute('user-permissions.index');
     }
 
     public function render()

@@ -26,15 +26,14 @@ class Form extends Component
                     'name' => '',
                     'code' => '',
                     'description' => '',
-                    'is_active' => true,
                 ];
             }
         } catch (ModelNotFoundException $e) {
             session()->flash('error', 'Program not found.');
-            return redirect()->route('maintenance.programs.index');
+            $this->redirectRoute('maintenance.programs.index');
         } catch (Exception $e) {
             session()->flash('error', 'An error occurred while loading the program.');
-            return redirect()->route('maintenance.programs.index');
+            $this->redirectRoute('maintenance.programs.index');
         }
     }
 
@@ -44,7 +43,6 @@ class Form extends Component
             'program.name' => 'required|string|max:255',
             'program.code' => 'required|string|max:50|unique:programs,code' . ($this->isEdit ? ',' . $this->program['id'] : ''),
             'program.description' => 'nullable|string',
-            'program.is_active' => 'boolean',
         ];
     }
 
@@ -76,13 +74,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Program created successfully.');
-            return redirect()->route('maintenance.programs.index');
+            $this->redirectRoute('maintenance.programs.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create program. Please try again.');
             $this->errorMessage = 'An error occurred while saving the program.';
-            return null;
         }
     }
 
@@ -100,17 +97,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Program updated successfully.');
-            return redirect()->route('maintenance.programs.index');
+            $this->redirectRoute('maintenance.programs.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Program not found.');
-            return redirect()->route('maintenance.programs.index');
+            $this->redirectRoute('maintenance.programs.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update program. Please try again.');
             $this->errorMessage = 'An error occurred while updating the program.';
-            return null;
         }
     }
 

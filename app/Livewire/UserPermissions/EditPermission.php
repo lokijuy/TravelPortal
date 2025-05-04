@@ -41,7 +41,7 @@ class EditPermission extends Component
 
         session()->flash('message', 'Permission updated successfully.');
         
-        return $this->redirect(route('user-permissions.index'));
+        $this->redirectRoute('user-permissions.index');
     }
 
     public function render()

@@ -59,24 +59,10 @@
                             @endif
                         </div>
                     </th>
-                    <th wire:click="sortBy('code')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <th wire:click="sortBy('value')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
                         <div class="flex items-center">
-                            Code
-                            @if ($sortField === 'code')
-                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                    @if ($sortDirection === 'asc')
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                    @else
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
-                                    @endif
-                                </svg>
-                            @endif
-                        </div>
-                    </th>
-                    <th wire:click="sortBy('description')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <div class="flex items-center">
-                            Description
-                            @if ($sortField === 'description')
+                            Value
+                            @if ($sortField === 'value')
                                 <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     @if ($sortDirection === 'asc')
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -99,10 +85,7 @@
                             {{ $coverage->name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $coverage->code }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $coverage->description }}
+                            {{ number_format($coverage->value, 2) }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-end gap-2">

@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->text('description')->nullable();
-            $table->foreignId('package_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
