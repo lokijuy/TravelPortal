@@ -17,7 +17,8 @@ class Package extends Model
      */
     protected $fillable = [
         'name',
-        'policy_limit',
+        'code',
+        'description',
     ];
 
     /**
@@ -26,7 +27,8 @@ class Package extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'policy_limit' => 'decimal:2',
+        'code' => 'string',
+        'description' => 'string',
     ];
 
     /**
@@ -34,7 +36,9 @@ class Package extends Model
      */
     public function agents()
     {
-        return $this->hasMany(Agent::class);
+        return $this->belongsToMany(Agent::class, 'agents_packages')
+            ->using(AgentPackage::class)
+            ->withTimestamps();
     }
 
     /**

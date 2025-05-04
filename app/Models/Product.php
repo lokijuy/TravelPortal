@@ -18,12 +18,8 @@ class Product extends Model
     protected $fillable = [
         'name',
         'code',
-        'program_id',
+        'description',
         'gross',
-        'net',
-        'premium_tax',
-        'lgt',
-        'doc_stamp',
     ];
 
     /**
@@ -33,19 +29,7 @@ class Product extends Model
      */
     protected $casts = [
         'gross' => 'decimal:2',
-        'net' => 'decimal:2',
-        'premium_tax' => 'decimal:2',
-        'lgt' => 'decimal:2',
-        'doc_stamp' => 'decimal:2',
     ];
-
-    /**
-     * Get the program that owns the product.
-     */
-    public function program()
-    {
-        return $this->belongsTo(Program::class);
-    }
 
     /**
      * Get the coverages associated with the product.

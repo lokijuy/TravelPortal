@@ -59,12 +59,12 @@ Route::middleware(['auth'])->group(function () {
     
     // Posted Transactions
     Route::get('/posted-policies', Posted::class)
-        ->middleware('permission:view-posted-policies')
+        // ->middleware('permission:view-posted-policies')
         ->name('policy-issuance.posted');
     
     // Reports
     Route::get('/reports/policies', Report::class)
-        ->middleware('permission:view-reports')
+        // ->middleware('permission:view-reports')
         ->name('policy-issuance.report');
 
     // User Permissions Routes

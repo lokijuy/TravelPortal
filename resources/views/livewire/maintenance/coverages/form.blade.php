@@ -1,61 +1,71 @@
-<div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">{{ $isEdit ? 'Edit Coverage' : 'Create Coverage' }}</h1>
+<div class="p-6 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            {{ $isEdit ? 'Edit Coverage' : 'Create Coverage' }}
+        </h2>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {{ $isEdit ? 'Update coverage information' : 'Create a new coverage' }}
+        </p>
     </div>
 
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="p-6">
-            @if (session()->has('error'))
-                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">{{ session('error') }}</span>
-                </div>
-            @endif
+    <form wire:submit.prevent="{{ $isEdit ? 'update' : 'save' }}" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <input 
+                    type="text" 
+                    wire:model="coverage.name" 
+                    id="name" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" 
+                    placeholder="Enter coverage name"
+                    required
+                >
+                @error('coverage.name') 
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p> 
+                @enderror
+            </div>
 
-            @if ($errorMessage)
-                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <span class="block sm:inline">{{ $errorMessage }}</span>
-                </div>
-            @endif
-
-            <form wire:submit="{{ $isEdit ? 'update' : 'save' }}">
-                <div class="grid grid-cols-1 gap-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" wire:model="coverage.name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                        @error('coverage.name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="code" class="block text-sm font-medium text-gray-700">Code</label>
-                        <input type="text" wire:model="coverage.code" id="code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                        @error('coverage.code') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea wire:model="coverage.description" id="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
-                        @error('coverage.description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="is_active" class="block text-sm font-medium text-gray-700">Status</label>
-                        <select wire:model="coverage.is_active" id="is_active" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
-                        </select>
-                        @error('coverage.is_active') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
-                <div class="mt-6 flex justify-end space-x-3">
-                    <a href="{{ route('maintenance.coverages.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md">
-                        Cancel
-                    </a>
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
-                        {{ $isEdit ? 'Update' : 'Create' }}
-                    </button>
-                </div>
-            </form>
+            <div>
+                <label for="value" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value</label>
+                <input 
+                    type="number" 
+                    step="0.01" 
+                    wire:model="coverage.value" 
+                    id="value" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" 
+                    placeholder="Enter coverage value"
+                    required
+                >
+                @error('coverage.value') 
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p> 
+                @enderror
+            </div>
         </div>
-    </div>
+
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end space-x-3">
+            <a 
+                href="{{ route('maintenance.coverages.index') }}" 
+                wire:navigate
+                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
+                Cancel
+            </a>
+            <button 
+                type="submit"
+                wire:loading.attr="disabled"
+                wire:loading.class="opacity-50 cursor-wait"
+                class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            >
+                <span wire:loading.remove wire:target="{{ $isEdit ? 'update' : 'save' }}">
+                    {{ $isEdit ? 'Update' : 'Create' }} Coverage
+                </span>
+                <span wire:loading wire:target="{{ $isEdit ? 'update' : 'save' }}">
+                    {{ $isEdit ? 'Updating...' : 'Creating...' }}
+                </span>
+            </button>
+        </div>
+    </form>
+
+    <x-toast-notification />
 </div> 

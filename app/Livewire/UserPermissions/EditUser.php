@@ -34,7 +34,7 @@ class EditUser extends Component
         $this->user->permissions()->sync($this->selectedPermissions);
         session()->flash('message', 'Permissions updated successfully.');
         
-        return redirect()->route('user-permissions.index');
+        $this->redirectRoute('user-permissions.index');
     }
 
     public function render()

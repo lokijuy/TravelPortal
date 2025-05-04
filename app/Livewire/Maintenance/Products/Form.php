@@ -26,8 +26,7 @@ class Form extends Component
                     'name' => '',
                     'code' => '',
                     'description' => '',
-                    'price' => 0,
-                    'is_active' => true,
+                    'gross' => 0,
                 ];
             }
         } catch (ModelNotFoundException $e) {
@@ -45,8 +44,7 @@ class Form extends Component
             'product.name' => 'required|string|max:255',
             'product.code' => 'required|string|max:50|unique:products,code' . ($this->isEdit ? ',' . $this->product['id'] : ''),
             'product.description' => 'nullable|string',
-            'product.price' => 'required|numeric|min:0',
-            'product.is_active' => 'boolean',
+            'product.gross' => 'required|numeric|min:0',
         ];
     }
 
@@ -56,9 +54,9 @@ class Form extends Component
             'product.name.required' => 'The name field is required.',
             'product.code.required' => 'The code field is required.',
             'product.code.unique' => 'This code is already in use.',
-            'product.price.required' => 'The price field is required.',
-            'product.price.numeric' => 'The price must be a number.',
-            'product.price.min' => 'The price must be at least 0.',
+            'product.gross.required' => 'The gross field is required.',
+            'product.gross.numeric' => 'The gross must be a number.',
+            'product.gross.min' => 'The gross must be at least 0.',
         ];
     }
 
@@ -81,13 +79,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Product created successfully.');
-            return redirect()->route('maintenance.products.index');
+            $this->redirectRoute('maintenance.products.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create product. Please try again.');
             $this->errorMessage = 'An error occurred while saving the product.';
-            return null;
         }
     }
 
@@ -105,17 +102,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Product updated successfully.');
-            return redirect()->route('maintenance.products.index');
+            $this->redirectRoute('maintenance.products.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Product not found.');
-            return redirect()->route('maintenance.products.index');
+            $this->redirectRoute('maintenance.products.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update product. Please try again.');
             $this->errorMessage = 'An error occurred while updating the product.';
-            return null;
         }
     }
 

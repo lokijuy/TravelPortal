@@ -18,7 +18,8 @@ class SuperAdminSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'SUPER ADMIN',
             'email' => 'super-admin@maagap.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('p@ssw0rd'),
+            'agent_id' => 1,
         ]);
 
         // Grant all permissions to super admin

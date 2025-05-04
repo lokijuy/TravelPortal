@@ -57,4 +57,7 @@
         {{ __('Already have an account?') }}
         <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
     </div> --}}
+    <x-action-message class="me-3" on="user-registered">
+        {{ __('User registered successfully.') }}
+    </x-action-message>
 </div>

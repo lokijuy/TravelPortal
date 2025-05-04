@@ -36,8 +36,11 @@ class Register extends Component
 
         event(new Registered(($user = User::create($validated))));
 
-        Auth::login($user);
+        $this->reset('name', 'email', 'password', 'password_confirmation');
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        // Auth::login($user);
+        $this->dispatch('user-registered');
+
+        // $this->redirect(route('register', absolute: false), navigate: true);
     }
 }

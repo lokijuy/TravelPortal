@@ -87,6 +87,20 @@
                             @endif
                         </div>
                     </th>
+                    <th wire:click="sortBy('gross')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
+                        <div class="flex items-center">
+                            Gross
+                            @if ($sortField === 'gross')
+                                <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    @if ($sortDirection === 'asc')
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    @else
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+                                    @endif
+                                </svg>
+                            @endif
+                        </div>
+                    </th>
                     <th scope="col" class="px-6 py-3 text-right">
                         Actions
                     </th>
@@ -103,6 +117,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $product->description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ number_format($product->gross, 2) }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-end gap-2">

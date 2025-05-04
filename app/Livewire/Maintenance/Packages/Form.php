@@ -26,16 +26,14 @@ class Form extends Component
                     'name' => '',
                     'code' => '',
                     'description' => '',
-                    'price' => 0,
-                    'is_active' => true,
                 ];
             }
         } catch (ModelNotFoundException $e) {
             session()->flash('error', 'Package not found.');
-            return redirect()->route('maintenance.packages.index');
+            $this->redirectRoute('maintenance.packages.index');
         } catch (Exception $e) {
             session()->flash('error', 'An error occurred while loading the package.');
-            return redirect()->route('maintenance.packages.index');
+            $this->redirectRoute('maintenance.packages.index');
         }
     }
 
@@ -45,8 +43,6 @@ class Form extends Component
             'package.name' => 'required|string|max:255',
             'package.code' => 'required|string|max:50|unique:packages,code' . ($this->isEdit ? ',' . $this->package['id'] : ''),
             'package.description' => 'nullable|string',
-            'package.price' => 'required|numeric|min:0',
-            'package.is_active' => 'boolean',
         ];
     }
 
@@ -56,9 +52,7 @@ class Form extends Component
             'package.name.required' => 'The name field is required.',
             'package.code.required' => 'The code field is required.',
             'package.code.unique' => 'This code is already in use.',
-            'package.price.required' => 'The price field is required.',
-            'package.price.numeric' => 'The price must be a number.',
-            'package.price.min' => 'The price must be at least 0.',
+            'package.description.string' => 'The description must be a string.',
         ];
     }
 
@@ -81,13 +75,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Package created successfully.');
-            return redirect()->route('maintenance.packages.index');
+            $this->redirectRoute('maintenance.packages.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create package. Please try again.');
             $this->errorMessage = 'An error occurred while saving the package.';
-            return null;
         }
     }
 
@@ -105,17 +98,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Package updated successfully.');
-            return redirect()->route('maintenance.packages.index');
+            $this->redirectRoute('maintenance.packages.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Package not found.');
-            return redirect()->route('maintenance.packages.index');
+            $this->redirectRoute('maintenance.packages.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update package. Please try again.');
             $this->errorMessage = 'An error occurred while updating the package.';
-            return null;
         }
     }
 

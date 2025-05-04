@@ -37,10 +37,10 @@ class Form extends Component
             }
         } catch (ModelNotFoundException $e) {
             session()->flash('error', 'Travel Policy not found.');
-            return redirect()->route('policy-issuance.index');
+            $this->redirectRoute('policy-issuance.index');
         } catch (Exception $e) {
             session()->flash('error', 'An error occurred while loading the travel policy.');
-            return redirect()->route('policy-issuance.index');
+            $this->redirectRoute('policy-issuance.index');
         }
     }
 
@@ -101,13 +101,12 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Travel Policy created successfully.');
-            return redirect()->route('policy-issuance.index');
+            $this->redirectRoute('policy-issuance.index');
             
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to create travel policy. Please try again.');
             $this->errorMessage = 'An error occurred while saving the travel policy.';
-            return null;
         }
     }
 
@@ -131,17 +130,16 @@ class Form extends Component
             DB::commit();
 
             session()->flash('message', 'Travel Policy updated successfully.');
-            return redirect()->route('policy-issuance.index');
+            $this->redirectRoute('policy-issuance.index');
             
         } catch (ModelNotFoundException $e) {
             DB::rollBack();
             session()->flash('error', 'Travel Policy not found.');
-            return redirect()->route('policy-issuance.index');
+            $this->redirectRoute('policy-issuance.index');
         } catch (Exception $e) {
             DB::rollBack();
             session()->flash('error', 'Failed to update travel policy. Please try again.');
             $this->errorMessage = 'An error occurred while updating the travel policy.';
-            return null;
         }
     }
 

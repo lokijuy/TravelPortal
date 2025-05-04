@@ -73,10 +73,10 @@
                             @endif
                         </div>
                     </th>
-                    <th wire:click="sortBy('email')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <th wire:click="sortBy('branch.name')" scope="col" class="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">
                         <div class="flex items-center">
-                            Email
-                            @if ($sortField === 'email')
+                            Branch
+                            @if ($sortField === 'branch.name')
                                 <svg class="w-3 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     @if ($sortDirection === 'asc')
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -102,10 +102,20 @@
                             {{ $agent->code }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $agent->email }}
+                            {{ $agent->branch->name }}
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-end gap-2">
+                                <a 
+                                    href="{{ route('maintenance.agents.show', $agent) }}"
+                                    wire:navigate 
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline" 
+                                    title="View Agent">
+                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7Z"/>
+                                    </svg>
+                                </a>
                                 <a 
                                     href="{{ route('maintenance.agents.edit', $agent) }}"
                                     wire:navigate 

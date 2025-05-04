@@ -1,45 +1,84 @@
-<div>
-    <div class="mb-4">
-        <h2 class="text-2xl font-bold">{{ $isEdit ? 'Edit' : 'Create' }} Program</h2>
+<div class="p-6 bg-white dark:bg-gray-800 shadow-md sm:rounded-lg">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            {{ $isEdit ? 'Edit Program' : 'Create Program' }}
+        </h2>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {{ $isEdit ? 'Update program information' : 'Create a new program' }}
+        </p>
     </div>
 
-    <form wire:submit="{{ $isEdit ? 'update' : 'save' }}" class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form wire:submit.prevent="{{ $isEdit ? 'update' : 'save' }}" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" wire:model="program.name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('program.name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <input 
+                    type="text" 
+                    wire:model="program.name" 
+                    id="name" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" 
+                    placeholder="Enter program name"
+                    required
+                >
+                @error('program.name') 
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p> 
+                @enderror
             </div>
 
             <div>
-                <label for="code" class="block text-sm font-medium text-gray-700">Code</label>
-                <input type="text" wire:model="program.code" id="code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                @error('program.code') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code</label>
+                <input 
+                    type="text" 
+                    wire:model="program.code" 
+                    id="code" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500" 
+                    placeholder="Enter program code"
+                    required
+                >
+                @error('program.code') 
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p> 
+                @enderror
             </div>
 
             <div class="md:col-span-2">
-                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                <textarea wire:model="program.description" id="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
-                @error('program.description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
-
-            <div>
-                <label for="is_active" class="block text-sm font-medium text-gray-700">Status</label>
-                <select wire:model="program.is_active" id="is_active" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select>
-                @error('program.is_active') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                <textarea 
+                    wire:model="program.description" 
+                    id="description" 
+                    rows="3" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                    placeholder="Enter program description"
+                ></textarea>
+                @error('program.description') 
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p> 
+                @enderror
             </div>
         </div>
 
-        <div class="flex justify-end space-x-2">
-            <a href="{{ route('maintenance.programs.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end space-x-3">
+            <a 
+                href="{{ route('maintenance.programs.index') }}" 
+                wire:navigate
+                class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
                 Cancel
             </a>
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ $isEdit ? 'Update' : 'Create' }} Program
+            <button 
+                type="submit"
+                wire:loading.attr="disabled"
+                wire:loading.class="opacity-50 cursor-wait"
+                class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
+            >
+                <span wire:loading.remove wire:target="{{ $isEdit ? 'update' : 'save' }}">
+                    {{ $isEdit ? 'Update' : 'Create' }} Program
+                </span>
+                <span wire:loading wire:target="{{ $isEdit ? 'update' : 'save' }}">
+                    {{ $isEdit ? 'Updating...' : 'Creating...' }}
+                </span>
             </button>
         </div>
     </form>
+
+    <x-toast-notification />
 </div> 

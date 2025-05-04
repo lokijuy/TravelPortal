@@ -18,7 +18,6 @@ class Coverage extends Model
     protected $fillable = [
         'name',
         'value',
-        'product_id',
     ];
 
     /**

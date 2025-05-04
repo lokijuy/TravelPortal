@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('value', 12, 2);
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
