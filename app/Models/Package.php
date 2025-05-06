@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Package extends Model
 {
@@ -34,18 +35,16 @@ class Package extends Model
     /**
      * Get the agents associated with the package.
      */
-    public function agents()
+    public function agents(): BelongsToMany
     {
-        return $this->belongsToMany(Agent::class, 'agents_packages')
-            ->using(AgentPackage::class)
-            ->withTimestamps();
+        return $this->belongsToMany(Agent::class, 'agent_packages');
     }
 
     /**
      * Get the programs associated with the package.
      */
-    public function programs()
+    public function programs(): BelongsToMany
     {
-        return $this->hasMany(Program::class);
+        return $this->belongsToMany(Program::class, 'package_programs');
     }
 } 

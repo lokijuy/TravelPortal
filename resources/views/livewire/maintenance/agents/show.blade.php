@@ -10,7 +10,7 @@
             <a 
                 href="{{ route('maintenance.agents.edit', $agent) }}"
                 wire:navigate
-                class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                class="text-gray-900 bg-[#FFC300] hover:bg-[#e6b000] focus:ring-4 focus:ring-yellow-200 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
             >
                 Edit Agent
             </a>

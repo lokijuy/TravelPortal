@@ -1,0 +1,77 @@
+{
+    "ignore": {
+        "files": [
+            ".env",
+            ".env.example",
+            "*.log",
+            "*.cache",
+            "*.lock"
+        ],
+        "directories": [
+            "vendor",
+            "node_modules",
+            "storage",
+            "bootstrap/cache",
+            "public/storage"
+        ]
+    },
+    "format": {
+        "php": {
+            "indentSize": 4,
+            "tabSize": 4,
+            "insertSpaces": true,
+            "trimTrailingWhitespace": true,
+            "insertFinalNewline": true
+        },
+        "javascript": {
+            "indentSize": 2,
+            "tabSize": 2,
+            "insertSpaces": true,
+            "trimTrailingWhitespace": true,
+            "insertFinalNewline": true
+        },
+        "blade": {
+            "indentSize": 4,
+            "tabSize": 4,
+            "insertSpaces": true,
+            "trimTrailingWhitespace": true,
+            "insertFinalNewline": true
+        }
+    },
+    "workspace": {
+        "search": {
+            "exclude": {
+                "**/node_modules": true,
+                "**/vendor": true,
+                "**/storage": true,
+                "**/bootstrap/cache": true
+            }
+        },
+        "files": {
+            "associations": {
+                "*.blade.php": "blade",
+                "*.php": "php"
+            }
+        }
+    },
+    "editor": {
+        "defaultFormatter": "php-cs-fixer",
+        "formatOnSave": true,
+        "formatOnPaste": true,
+        "wordWrap": "on",
+        "rulers": [80, 120],
+        "trimTrailingWhitespace": true,
+        "insertFinalNewline": true
+    },
+    "references": {
+        "documentation": {
+            "laravel": "https://laravel.com/docs/12.x",
+            "laracasts": "https://laracasts.com/",
+            "livewire": "https://livewire.laravel.com/docs/quickstart",
+            "spatie": "https://spatie.be/",
+            "laravel_excel": "https://laravel-excel.com/",
+            "flowbite": "https://flowbite.com/docs/getting-started/introduction/",
+            "flowbite_demo": "https://flowbite.com/application-ui/demo/"            
+        }
+    }
+} 
