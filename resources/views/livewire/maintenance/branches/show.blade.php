@@ -58,6 +58,19 @@
                 </div>
             </dl>
         </div>
+
+        <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg md:col-span-2">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">List of Agents under this branch</h3>
+            <dl class="space-y-4">
+                @foreach ($branch->agents as $agent)
+                    <div>
+                        <dt class="text-xs font-medium text-gray-500 dark:text-gray-400">{{ $agent->name }}</dt>
+                        <dd class="text-xs text-gray-900 dark:text-white">{{ $agent->code }}</dd>
+                    </div>
+                    <hr>
+                @endforeach
+            </dl>
+        </div>
     </div>
 
     <x-toast-notification />

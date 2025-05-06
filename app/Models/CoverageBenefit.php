@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class AgentPackage extends Pivot
+class CoverageBenefit extends Pivot
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'agent_packages';
+    protected $table = 'coverage_benefits';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -33,17 +33,17 @@ class AgentPackage extends Pivot
      * @var array<string>
      */
     protected $fillable = [
-        'agent_id',
-        'package_id',
+        'coverage_id',
+        'benefit_id',
     ];
 
-    public function agent()
+    public function coverage()
     {
-        return $this->belongsTo(Agent::class);
+        return $this->belongsTo(Coverage::class);
     }
 
-    public function package()
+    public function benefit()
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsTo(Benefit::class);
     }
 } 
