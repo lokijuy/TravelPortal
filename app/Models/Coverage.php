@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Coverage extends Model
 {
@@ -29,11 +30,14 @@ class Coverage extends Model
         'value' => 'decimal:2',
     ];
 
-    /**
-     * Get the product that owns the coverage.
-     */
-    public function product()
+
+    public function products(): BelongsToMany
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsToMany(Product::class, 'product_coverages');
+    }
+
+    public function benefits(): BelongsToMany
+    {
+        return $this->belongsToMany(Benefit::class, 'coverage_benefits');
     }
 } 

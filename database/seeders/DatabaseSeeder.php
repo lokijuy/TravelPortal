@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,
             ProductSeeder::class,
             CoverageSeeder::class,
+            BenefitSeeder::class,
             SuperAdminSeeder::class,
             UserSeeder::class,
         ]);

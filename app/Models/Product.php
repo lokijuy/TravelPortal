@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
@@ -32,10 +33,18 @@ class Product extends Model
     ];
 
     /**
+     * Get the programs associated with the product.
+     */
+    public function programs(): BelongsToMany
+    {
+        return $this->belongsToMany(Program::class, 'program_products');
+    }
+
+    /**
      * Get the coverages associated with the product.
      */
-    public function coverages()
+    public function coverages(): BelongsToMany
     {
-        return $this->hasMany(Coverage::class);
+        return $this->belongsToMany(Coverage::class, 'product_coverages');
     }
 } 

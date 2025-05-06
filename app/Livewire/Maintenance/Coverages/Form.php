@@ -24,7 +24,6 @@ class Form extends Component
             } else {
                 $this->coverage = [
                     'name' => '',
-                    'value' => 0,
                 ];
             }
         } catch (ModelNotFoundException $e) {
@@ -40,7 +39,6 @@ class Form extends Component
     {
         return [
             'coverage.name' => 'required|string|max:255',
-            'coverage.value' => 'required|numeric|min:0',
         ];
     }
 
@@ -48,9 +46,6 @@ class Form extends Component
     {
         return [
             'coverage.name.required' => 'The name field is required.',
-            'coverage.value.required' => 'The value field is required.',
-            'coverage.value.numeric' => 'The value must be a number.',
-            'coverage.value.min' => 'The value must be at least 0.',
         ];
     }
 

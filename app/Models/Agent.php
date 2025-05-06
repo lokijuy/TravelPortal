@@ -34,7 +34,7 @@ class Agent extends Model
      */
     public function packages()
     {
-        return $this->belongsToMany(Package::class, 'agents_packages')
+        return $this->belongsToMany(Package::class, 'agent_packages')
             ->using(AgentPackage::class)
             ->withTimestamps();
     }
